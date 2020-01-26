@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
-const testTableName = "go-adventures-TestTable-dev"
+const testTableName = "test-table"
 
 type dynamoStruct struct {
 	ID    string
