@@ -3,6 +3,7 @@ package simplestream
 import (
 	"reflect"
 
+	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 )
 
@@ -12,6 +13,9 @@ type MultiTransformer struct {
 
 func (m *MultiTransformer) Transform(input interface{}) (interface{}, error) {
 	o := input
+	if m.Transformers == nil {
+		return nil, errors.New("transformers are not defined")
+	}
 	for i, t := range m.Transformers {
 		logrus.
 			WithField("transformer", reflect.TypeOf(t)).

@@ -29,7 +29,7 @@ func TestMultitransform_noTransformers(t *testing.T) {
 	// Test data
 	trans := &simplestream.MultiTransformer{}
 	for _, input := range testCases() {
-		t.Run(fmt.Sprintf("input: %s", input), testIdentity(t, trans, input))
+		t.Run(fmt.Sprintf("input: %s", input), testError(t, trans, input))
 	}
 }
 

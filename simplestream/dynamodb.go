@@ -14,7 +14,7 @@ type DynamoDBDestination struct {
 func (d *DynamoDBDestination) Put(p interface{}) error {
 	logrus.
 		WithField("item", p).
-		Info("Loading item into DynamoDB")
+		Debug("Loading item into DynamoDB")
 	av, err := dynamodbattribute.MarshalMap(p)
 	if err != nil {
 		return err
@@ -25,7 +25,7 @@ func (d *DynamoDBDestination) Put(p interface{}) error {
 	}
 	logrus.
 		WithField("request", input).
-		Info("PutItem")
+		Debug("PutItem")
 	out, err := d.DB.PutItem(input)
 	if err != nil {
 		return err

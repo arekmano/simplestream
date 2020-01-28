@@ -28,6 +28,9 @@ type TransformProcessor struct {
 }
 
 func (s *TransformProcessor) Process(input interface{}) error {
+	if err := s.validate(); err != nil {
+		return err
+	}
 	err := s.Source.Fetch(input)
 	if err == (NoMoreSourceError{}) {
 		return io.EOF
@@ -42,6 +45,19 @@ func (s *TransformProcessor) Process(input interface{}) error {
 	err = s.Destination.Put(output)
 	if err != nil {
 		return errors.Wrap(err, fmt.Sprintf("Error occured when putting to the destination using %s", reflect.TypeOf(s.Destination)))
+	}
+	return nil
+}
+
+func (s *TransformProcessor) validate() error {
+	if s.Source == nil {
+		return errors.New("source is not defined")
+	}
+	if s.Destination == nil {
+		return errors.New("destination is not defined")
+	}
+	if s.Transformer == nil {
+		return errors.New("transformer is not defined")
 	}
 	return nil
 }
