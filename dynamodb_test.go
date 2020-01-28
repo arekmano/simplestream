@@ -5,15 +5,16 @@ import (
 
 	"github.com/arekmano/simplestream"
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
-const testTableName = "test-table"
+const testTableName = "TestTable-dev"
 
 type dynamoStruct struct {
-	ID    string
-	Value string
+	User string `json:"user"`
+	ID   string `json:"id"`
 }
 
 type invalidDynamoStruct struct {
@@ -21,7 +22,10 @@ type invalidDynamoStruct struct {
 }
 
 var region = "us-west-2"
-var s = session.Must(session.NewSession(&aws.Config{Region: &region}))
+var conf = aws.NewConfig().
+	WithCredentials(credentials.NewEnvCredentials()).
+	WithRegion("us-west-2")
+var s = session.Must(session.NewSession(conf))
 var db = dynamodb.New(s)
 var dest = simplestream.DynamoDBDestination{
 	DB:        db,
@@ -31,8 +35,8 @@ var dest = simplestream.DynamoDBDestination{
 func TestPut_valid(t *testing.T) {
 	// Test data
 	input := dynamoStruct{
-		ID:    "test",
-		Value: "test",
+		ID:   "test",
+		User: "test",
 	}
 
 	// Execute

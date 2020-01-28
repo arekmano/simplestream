@@ -4,5 +4,5 @@ type NoMoreSourceError struct {
 }
 
 func (n NoMoreSourceError) Error() string {
-	return "No more errors found at source"
+	return "No more entries found at source"
 }

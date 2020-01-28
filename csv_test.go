@@ -2,7 +2,6 @@ package simplestream_test
 
 import (
 	"encoding/csv"
-	"io"
 	"strings"
 	"testing"
 
@@ -43,7 +42,7 @@ func TestCsvSource_invalid(t *testing.T) {
 	}
 
 	err := reader.Fetch(nil)
-	if err != io.EOF {
-		t.Fatal("Expected an EOF error")
+	if err != (simplestream.NoMoreSourceError{}) {
+		t.Fatal("Expected an no more entries error", err)
 	}
 }
