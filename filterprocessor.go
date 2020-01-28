@@ -20,14 +20,14 @@ func (s *FilterProcessor) Process(input interface{}) error {
 		return io.EOF
 	}
 	if err != nil {
-		return errors.Wrap(err, fmt.Sprintf("Error occured when fetching from source using %s", reflect.TypeOf(s.Source)))
+		return errors.Wrap(err, fmt.Sprintf("Error occurred when fetching from source using %s", reflect.TypeOf(s.Source)))
 	}
 	if !s.FilterConditionFunc(input) {
 		return nil
 	}
 	err = s.Destination.Put(input)
 	if err != nil {
-		return errors.Wrap(err, fmt.Sprintf("Error occured when putting to the destination using %s", reflect.TypeOf(s.Destination)))
+		return errors.Wrap(err, fmt.Sprintf("Error occurred when putting to the destination using %s", reflect.TypeOf(s.Destination)))
 	}
 	return nil
 }

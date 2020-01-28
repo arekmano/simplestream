@@ -5,7 +5,6 @@ type StringSource struct {
 }
 
 func (s *StringSource) Fetch(p interface{}) error {
-	p = s.Output
 	return nil
 }
 

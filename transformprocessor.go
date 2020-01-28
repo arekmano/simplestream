@@ -23,15 +23,15 @@ func (s *TransformProcessor) Process(input interface{}) error {
 		return io.EOF
 	}
 	if err != nil {
-		return errors.Wrap(err, fmt.Sprintf("Error occured when fetching from source using %s", reflect.TypeOf(s.Source)))
+		return errors.Wrap(err, fmt.Sprintf("Error occurred when fetching from source using %s", reflect.TypeOf(s.Source)))
 	}
 	output, err := s.Transform(input)
 	if err != nil {
-		return errors.Wrap(err, fmt.Sprintf("Error occured when transforming using %s", reflect.TypeOf(s.Transformer)))
+		return errors.Wrap(err, fmt.Sprintf("Error occurred when transforming using %s", reflect.TypeOf(s.Transformer)))
 	}
 	err = s.Destination.Put(output)
 	if err != nil {
-		return errors.Wrap(err, fmt.Sprintf("Error occured when putting to the destination using %s", reflect.TypeOf(s.Destination)))
+		return errors.Wrap(err, fmt.Sprintf("Error occurred when putting to the destination using %s", reflect.TypeOf(s.Destination)))
 	}
 	return nil
 }
