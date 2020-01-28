@@ -1,25 +1,12 @@
 package simplestream
 
-import "github.com/pkg/errors"
+import (
+	"fmt"
+	"io"
+	"reflect"
 
-import "fmt"
-
-import "reflect"
-
-import "io"
-
-type BasicProcessor struct {
-	Source
-	Destination
-}
-
-func (s *BasicProcessor) Process(input interface{}) error {
-	err := s.Source.Fetch(input)
-	if err != nil {
-		return err
-	}
-	return s.Destination.Put(input)
-}
+	"github.com/pkg/errors"
+)
 
 type TransformProcessor struct {
 	Source
